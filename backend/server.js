@@ -4,14 +4,26 @@ const axios = require('axios');
 const path = require('path');
 
 const app = express();
+
+const allowedOrigins = ["https://utoxas.github.io"];
+
 app.use(cors({
-    origin: "https://utoxas.github.io"
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS not allowed"));
+        }
+    },
+    credentials: true
 }));
+
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('/weather', async (req, res) => {
+    res.setHeader("Access-Control.Allow-Origin", "*");
     try {
         const { city } = req.query;
         if (!city) return res.status(400).json({ error: 'City is required '});
@@ -40,6 +52,7 @@ app.get('/weather', async (req, res) => {
 });
 
 app.get('/autocomplete', async (req, res) => {
+    res.setHeader("Access-Control.Allow-Origin", "*");
     try {
         const { query } = req.query;
         if (!query) return res.status(400).json({ error: 'Query is required' });
