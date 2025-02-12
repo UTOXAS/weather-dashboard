@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 app.use(cors({
-    origin: "https://utoxas.github.io/weather-dashboard/"
+    origin: "https://utoxas.github.io"
 }));
 app.use(express.json());
 
