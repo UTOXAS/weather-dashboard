@@ -7,7 +7,8 @@ cityInput.addEventListener("input", async function () {
     if (query.length < 2) return;
 
     try {
-        const response = await fetch(`http://localhost:5000/autocomplete?query=${query}`);
+        // const response = await fetch(`http://localhost:5000/autocomplete?query=${query}`);
+        const response = await fetch(`weather-dashboard-572rscliy-utoxas-projects.vercel.app/autocomplete?query=${query}`);
         const data = await response.json();
 
         cityList.innerHTML = "";
@@ -28,7 +29,8 @@ searchBtn.addEventListener("click", async function () {
     }
 
     try {
-        const response = await fetch(`http://localhost:5000/weather?city=${city}`);
+        // const response = await fetch(`http://localhost:5000/weather?city=${city}`);
+        const response = await fetch(`weather-dashboard-572rscliy-utoxas-projects.vercel.app/weather?city=${city}`);
         const data = await response.json();
 
         if (data.error) {
