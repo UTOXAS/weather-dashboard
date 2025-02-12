@@ -2,13 +2,15 @@ const cityInput = document.getElementById("cityInput");
 const cityList = document.getElementById("cityList");
 const searchBtn = document.getElementById("searchBtn");
 
+const backendURL = "https://weather-dashboard-umber-ten.vercel.app";
+
 cityInput.addEventListener("input", async function () {
     const query = cityInput.value.trim();
     if (query.length < 2) return;
 
     try {
         // const response = await fetch(`http://localhost:5000/autocomplete?query=${query}`);
-        const response = await fetch(`weather-dashboard-572rscliy-utoxas-projects.vercel.app/autocomplete?query=${query}`);
+        const response = await fetch(`${backendURL}/autocomplete?query=${query}`);
         const data = await response.json();
 
         cityList.innerHTML = "";
@@ -30,7 +32,7 @@ searchBtn.addEventListener("click", async function () {
 
     try {
         // const response = await fetch(`http://localhost:5000/weather?city=${city}`);
-        const response = await fetch(`weather-dashboard-572rscliy-utoxas-projects.vercel.app/weather?city=${city}`);
+        const response = await fetch(`${backendURL}/weather?city=${city}`);
         const data = await response.json();
 
         if (data.error) {
