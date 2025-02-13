@@ -7,7 +7,7 @@ const axios = require('axios');
 const app = express();
 
 // app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname, '..')));
+// app.use(express.static(path.join(__dirname, '..')));
 
 
 const allowedOrigins = ["https://utoxas.github.io"];
