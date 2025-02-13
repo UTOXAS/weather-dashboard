@@ -3,17 +3,24 @@ const cityList = document.getElementById("cityList");
 const searchBtn = document.getElementById("searchBtn");
 
 const backendURL = window.location.hostname === "localhost"
-? "http://localhost:3000"
+? "http://localhost:5000"
 : "https://weather-dashboard-umber-ten.vercel.app";
-// const backendURL = "https://weather-dashboard-umber-ten.vercel.app";
-// const backendURL = "http://localhost:3000";
+
 
 cityInput.addEventListener("input", async function () {
+    if (checkIfCityinList()) {
+        cityList.innerHTML = "";
+        searchBtn.click();
+        return;
+    }
+
     const query = cityInput.value.trim();
-    if (query.length < 2) return;
+    if (query.length < 2) {
+        cityList.innerHTML = "";
+        return;
+    }
 
     try {
-        // const response = await fetch(`http://localhost:5000/autocomplete?query=${query}`);
         const response = await fetch(`${backendURL}/autocomplete?query=${query}`);
         const data = await response.json();
 
@@ -28,12 +35,36 @@ cityInput.addEventListener("input", async function () {
     }
 });
 
+
+cityInput.addEventListener("input", function() {
+    if (checkIfCityinList()) {
+        cityList.innerHTML = "";
+        searchBtn.click();
+    }
+    
+});
+
+function checkIfCityinList() {
+    const selectedCity = cityInput.value.trim();
+    const options = [...cityList.options].map(option => option.value);
+
+    if (options.includes(selectedCity)) {
+        return true;
+    }
+
+    return false;
+}
+
+
+
 cityInput.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
         event.preventDefault();
+        cityInput.innerHTML = "";
         searchBtn.click();
     }
 });
+
 
 searchBtn.addEventListener("click", async function () {
     const city = cityInput.value.split(",")[0];
@@ -43,7 +74,6 @@ searchBtn.addEventListener("click", async function () {
     }
 
     try {
-        // const response = await fetch(`http://localhost:5000/weather?city=${city}`);
         const response = await fetch(`${backendURL}/weather?city=${city}`);
         const data = await response.json();
 
@@ -61,3 +91,4 @@ searchBtn.addEventListener("click", async function () {
         document.getElementById("weatherResult").innerHTML = `<p class="text-danger">Error fetching data</p>`;
     }
 });
+
