@@ -2,7 +2,10 @@ const cityInput = document.getElementById("cityInput");
 const cityList = document.getElementById("cityList");
 const searchBtn = document.getElementById("searchBtn");
 
-const backendURL = "https://weather-dashboard-umber-ten.vercel.app";
+const backendURL = window.location.hostname === "localhost"
+? "http://localhost:3000"
+: "https://weather-dashboard-umber-ten.vercel.app";
+// const backendURL = "https://weather-dashboard-umber-ten.vercel.app";
 // const backendURL = "http://localhost:3000";
 
 cityInput.addEventListener("input", async function () {
@@ -24,6 +27,14 @@ cityInput.addEventListener("input", async function () {
         console.error("Error fetching city suggestions", error);
     }
 });
+
+cityInput.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        searchBtn.click();
+    }
+});
+
 searchBtn.addEventListener("click", async function () {
     const city = cityInput.value.split(",")[0];
     if (!city) {

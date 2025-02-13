@@ -1,9 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-// const path = require('path');
+const path = require('path');
+
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../public')));
+
 
 const allowedOrigins = ["https://utoxas.github.io"];
 
@@ -20,7 +24,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('/weather', async (req, res) => {
     res.setHeader("Access-Control.Allow-Origin", "*");
@@ -76,4 +79,8 @@ app.get('/autocomplete', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV !== "production") {
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+module.exports = app;
