@@ -3,6 +3,7 @@ const cityList = document.getElementById("cityList");
 const searchBtn = document.getElementById("searchBtn");
 
 const backendURL = "https://weather-dashboard-umber-ten.vercel.app";
+// const backendURL = "http://localhost:3000";
 
 cityInput.addEventListener("input", async function () {
     const query = cityInput.value.trim();
