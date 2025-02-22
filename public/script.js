@@ -2,9 +2,9 @@ const cityInput = document.getElementById("cityInput");
 const cityList = document.getElementById("cityList");
 const searchBtn = document.getElementById("searchBtn");
 
-const backendURL = window.location.hostname === "localhost"
-? "http://localhost:5000"
-: "https://weather-dashboard-umber-ten.vercel.app";
+const backendURL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:5500"
+    : "https://weather-dashboard-umber-ten.vercel.app";
 
 
 cityInput.addEventListener("input", async function () {
@@ -36,12 +36,12 @@ cityInput.addEventListener("input", async function () {
 });
 
 
-cityInput.addEventListener("input", function() {
+cityInput.addEventListener("input", function () {
     if (checkIfCityinList()) {
         cityList.innerHTML = "";
         searchBtn.click();
     }
-    
+
 });
 
 function checkIfCityinList() {
